@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
-project(ImGui LANGUAGES CXX)
+project(ImGuiCore LANGUAGES CXX)
 
 option(IMGUI_ENABLE_WIN32 "Enable Win32 backend" ON)
 option(IMGUI_ENABLE_DIRECTX12 "Enable DX12 backend" OFF)
 
-add_library(ImGui STATIC
+add_library(ImGuiCore STATIC
     imgui.cpp
     imgui_draw.cpp
     imgui_tables.cpp
@@ -12,21 +12,21 @@ add_library(ImGui STATIC
 )
 
 if(IMGUI_ENABLE_WIN32)
-    target_sources(ImGui
+    target_sources(ImGuiCore
         PRIVATE
             backends/imgui_impl_win32.cpp
     )
-    target_include_directories(ImGui
+    target_include_directories(ImGuiCore
         PUBLIC backends
     )
 endif()
 
 if(IMGUI_ENABLE_DIRECTX12)
-    target_sources(ImGui PRIVATE
+    target_sources(ImGuiCore PRIVATE
         backends/imgui_impl_dx12.cpp
     )
 endif()
 
-target_include_directories(ImGui PUBLIC
+target_include_directories(ImGuiCore PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
